@@ -459,9 +459,15 @@ public class QuickServer implements Runnable, Service, Cloneable, Serializable {
 		t = new Thread(this, "QuickServer - "+getName());
 		t.start();
 
-		do {
-			Thread.yield();	
-		} while(getServiceState()==Service.INIT);
+		synchronized (this) {
+			while(getServiceState() == Service.INIT) {
+				try {
+					wait();
+				} catch (InterruptedException e) {
+					//ignored
+				}
+			}
+		}
 
 		if(getServiceState()!=Service.RUNNING) {			
 			if(exceptionInRun!=null)
@@ -1500,8 +1506,9 @@ public class QuickServer implements Runnable, Service, Cloneable, Serializable {
 	 * As any constant of {@link Service} interface.
 	 * @since 1.2
 	 */
-	public void setServiceState(int state) {
+	public synchronized void setServiceState(int state) {
 		serviceState = state;
+		notifyAll();
 	}
 
 	private void configConsoleLoggingLevel(QuickServer qs, String temp) {
