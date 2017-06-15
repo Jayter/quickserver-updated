@@ -21,8 +21,8 @@ package org.quickserver.util.xmlreader;
  */
 public class PoolConfig implements java.io.Serializable {
 	private int maxActive = -1;
-	private int maxIdle = 50;
-	private int initSize = 25;
+	private int maxIdle = 2;
+	private int initSize = 1;
 	
 	private long timeBetweenEvictionRunsMillis = 1000*60*3;
 	private long minEvictableIdleTimeMillis = 1000*60*2;

@@ -30,8 +30,8 @@ public class AppThreadPool {
 	private static final Logger logger = Logger.getLogger(AppThreadPool.class.getName());
 	private static Map poolMap = new HashMap();
 	
-	private static int defaultCorePoolSize = 10;
-	private static int defaultMaximumPoolSize = 50;
+	private static int defaultCorePoolSize = 1;
+	private static int defaultMaximumPoolSize = 2;
 	private static int defaultKeepAliveTime = 120;
 	private static TimeUnit defaultTimeUnit = TimeUnit.SECONDS;
 
